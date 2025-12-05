@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const leaveWeys = [
-  { number: "120", title: "Annual Leave", btn: "Apply", Url: "/" },
+  { number: "120", title: "Annual Leave", btn: "Apply", Url: "/leaveFormPage" },
   { number: "90", title: "Sick Leaves", btn: "Apply", Url: "/" },
   { number: "30", title: "Maternity Leave", btn: "Apply", Url: "/" },
   { number: "20", title: "Rejected Leave", btn: "Apply", Url: "/" },
