@@ -1,14 +1,54 @@
 "use client";
+import { BASE_URL } from "@/basUrl/url";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { Router, useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function LoginPage() {
+  const router =useRouter()
   const [showPassword, setShowPassword] = useState(false);
+  const [formData,setFormData] = useState({
+    email:"",
+    password:""
+  })
 
-  const handlePassword = () => {
+  const handleChange = (e)=>{
+    setFormData({
+      ...formData,
+      [e.target.name]:e.target.value,
+    })
+  }
+
+
+
+  const handlePassword =  () => {
     setShowPassword(!showPassword);
   };
+
+  const handlSubmit =async (e)=>{
+    e.preventDefault()
+    //console.log(formData)
+    try {
+      const {email,password}= formData;
+      if(!email || !password){
+        toast.error("All field reqired")
+        return
+      }
+      const respons = await axios.post(`${BASE_URL}/user/login`,formData)
+     // console.log(respons,"those are responses")
+      toast.success("User Login Success")
+      localStorage.setItem("email",formData.email)
+      router.push("/")
+
+    } catch (error) {
+      
+    }
+  }
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 px-4">
@@ -36,13 +76,15 @@ function LoginPage() {
               Login or create an account
             </p>
 
-            <form className="mt-5">
+            <form className="mt-5" onSubmit={handlSubmit}>
 
               {/* Email */}
               <div>
                 <input
                   type="email"
                   placeholder="Email Address"
+                  onChange={handleChange}
+                  name="email"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg 
                     dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 
                     focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40 
@@ -62,7 +104,9 @@ function LoginPage() {
                 <div className="relative">
                   <input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
+                    onChange={handleChange}
                     placeholder="Enter Password"
                     className="block w-full px-4 py-2 pr-10 text-gray-700 bg-white border rounded-lg 
                       dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
@@ -74,7 +118,7 @@ function LoginPage() {
                     onClick={handlePassword}
                     className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
                   >
-                    {showPassword ? "🙈" : "👁"}
+                    {showPassword ? "❌" : "👁"}
                   </span>
                 </div>
               </div>
@@ -82,6 +126,7 @@ function LoginPage() {
               {/* Sign In Button */}
               <div className="flex justify-end mt-6">
                 <button
+                 type="submit"
                   className="w-full px-6 py-2 text-sm font-medium tracking-wide text-white capitalize bg-blue-500 rounded-lg 
                     hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 transition"
                 >

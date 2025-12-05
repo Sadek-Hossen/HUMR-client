@@ -2,17 +2,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import {FaPlus} from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 
 const btns = [
-  { name: "Applay for leave", link: "#" },
+  { name: "Apply for leave", link: "/applayLeave" },
   { name: "LPI Goals", link: "#" },
   { name: "Take appraisal", link: "#" },
   { name: "View Payslip", link: "#" },
-  { name: "Update Profilex", link: "#" },
+  { name: "Update Profile", link: "#" },
   { name: "Events", link: "#" },
 ];
-  const accordingData = [
+
+const accordingData = [
   {
     title: "What is the main goal of human behavior research?",
     description:
@@ -39,6 +40,7 @@ const btns = [
       "Informed consent ensures participants understand the purpose, risks, and procedures of the study before agreeing to take part.",
   },
 ];
+
 const according2Data = [
   {
     title: "What is cognitive research in human studies?",
@@ -46,7 +48,7 @@ const according2Data = [
       "Cognitive research explores how people learn, remember, solve problems, and process information, helping us understand mental functions.",
   },
   {
-    title: "How does stress affect human health?",
+    title: "How does stress affect human behavior?",
     description:
       "Prolonged stress can impact physical and mental health, leading to weakened immunity, anxiety, depression, and reduced productivity.",
   },
@@ -67,24 +69,23 @@ const according2Data = [
   },
 ];
 
-
 function Deshbord() {
-      const [bgAccording, setBgAccording] = useState(null);
-      const [isPlusAccording, setIsPlusAccording] = useState(null);
-      
-    const handleBgAccording = (index) =>
-        setBgAccording((prevIndex) => (prevIndex === index ? null : index));
+  const [bgAccording, setBgAccording] = useState(null);
+  const [isPlusAccording, setIsPlusAccording] = useState(null);
 
-   const handleBorderClick = (index) =>
-  setIsPlusAccording((prevIndex) => (prevIndex === index ? null : index));
+  const handleBgAccording = (index) =>
+    setBgAccording((prevIndex) => (prevIndex === index ? null : index));
+
+  const handleBorderClick = (index) =>
+    setIsPlusAccording((prevIndex) => (prevIndex === index ? null : index));
 
   return (
-    <div className="bg-blue-100 px-10  pb-10 min-h-screen">
-      {/* Hero Section */}
+    <div className="bg-blue-100 px-4 sm:px-6 lg:px-10 pb-10 min-h-screen">
+
+      {/* ---------------- HERO SECTION ---------------- */}
       <section className="w-full bg-blue-500">
         <div className="max-w-6xl w-full mx-auto px-4 py-10 flex flex-col sm:flex-row justify-between items-center text-white gap-6">
           
-          {/* Profile Info */}
           <div className="flex items-center gap-4">
             <Image
               src="https://img.freepik.com/free-photo/front-view-business-woman-suit_23-2148603018.jpg?semt=ais_hybrid&w=740&q=80"
@@ -95,24 +96,23 @@ function Deshbord() {
             />
 
             <div>
-              <h2 className="text-3xl font-bold">Jane Doe</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Jane Doe</h2>
               <p className="text-lg opacity-90">Web Developer</p>
             </div>
           </div>
 
-          {/* Edit Button */}
           <button className="px-6 py-2 border-2 border-white rounded-lg text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
             Edit
           </button>
         </div>
       </section>
 
-      {/* Navigation Buttons */}
+      {/* ---------------- BUTTON GRID ---------------- */}
       <section className="max-w-6xl w-full mx-auto px-4 mt-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
           {btns.map((button, id) => (
             <Link key={id} href={button.link}>
-              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-400 cursor-pointer  focus:bg-red-300 transition-all duration-300 text-white font-medium rounded-lg shadow-md">
+              <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-400 cursor-pointer transition-all duration-300 text-white font-medium rounded-lg shadow-md">
                 {button.name}
               </button>
             </Link>
@@ -120,119 +120,89 @@ function Deshbord() {
         </div>
       </section>
 
-      {/* accroding and progress area*/}
-      <section className="flex bg-amber-100  p-10  justify-center mt-28 items-center gap-5 ">
-   
-            <div className="flex gap-3 flex-col w-full">
-            {accordingData?.map((according, index) => (
-                <article key={index} className="bg-[#e5eaf2] dark:bg-transparent rounded">
-                    <div
-                        className={`${bgAccording === index ? "rounded-t-sm" : "rounded"} flex gap-2 cursor-pointer items-center justify-between dark:bg-slate-800 border-green-300 outline-black border-2 w-full bg-gray-700 p-3`}
-                        onClick={() => handleBgAccording(index)}
-                    >
-                        <h2
-                            className={`dark:text-[#abc2d3] text-white font-[600] text-[1.2rem]`}
-                        >
-                            {according.title}
-                        </h2>
-                        <svg
-                            className="dark:fill-[#abc2d3] fill-[#ffffff] shrink-0 ml-8"
-                            width="16"
-                            height="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <rect
-                                y="7"
-                                width="16"
-                                height="2"
-                                rx="1"
-                                className={`transform origin-center transition duration-200 ease-out ${
-                                    bgAccording === index && "!rotate-180"
-                                }`}
-                            />
-                            <rect
-                                y="7"
-                                width="16"
-                                height="2"
-                                rx="1"
-                                className={`transform origin-center rotate-90 transition duration-200 ease-out ${
-                                    bgAccording === index && "!rotate-180"
-                                }`}
-                            />
-                        </svg>
-                    </div>
-                    <div
-                        className={`grid transition-all duration-300 dark:bg-slate-900 overflow-hidden ease-in-out bg-gray-100 ${
-                            bgAccording === index
-                                ? "grid-rows-[1fr] opacity-100 px-3 py-3"
-                                : "grid-rows-[0fr] opacity-0 px-3"
-                        }`}
-                    >
-                        <div className="text-[#424242] dark:text-[#abc2d3] text-[0.9rem] overflow-hidden">
-                            {according.description}
-                        </div>
-                    </div>
-                </article>
-            ))}
-        </div>
-     <div className="flex gap-3 flex-col w-full">
-            {according2Data?.map((according, index) => (
-                <article
-                    key={index}
-                    className="border dark:border-slate-700 border-gray-600 border-2 rounded p-3"
+      {/* ---------------- ACCORDIONS AREA ---------------- */}
+      <section className="flex flex-col md:flex-row bg-amber-100 p-4 sm:p-6 md:p-10 justify-center items-start gap-5 mt-10 md:mt-20">
+
+        {/* LEFT ACCORDION */}
+        <div className="flex flex-col gap-3 w-full md:w-1/2">
+          {accordingData.map((item, index) => (
+            <article key={index} className="bg-[#e5eaf2] rounded">
+              <div
+                className={`${
+                  bgAccording === index ? "rounded-t-sm" : "rounded"
+                } flex gap-2 cursor-pointer items-center justify-between bg-gray-700 p-3 border-2 border-green-300`}
+                onClick={() => handleBgAccording(index)}
+              >
+                <h2 className="text-white font-semibold text-[1.1rem] sm:text-[1.2rem]">
+                  {item.title}
+                </h2>
+
+                <svg
+                  className="fill-white shrink-0"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                    <div
-                        className="flex gap-2 cursor-pointer items-center justify-between w-full"
-                        onClick={() => handleBorderClick(index)}
-                    >
-                        <h2 className="text-[#3B9DF8] font-[600] text-[1.2rem]">
-                            {according.title}
-                        </h2>
-                        <p>
-                            <FaPlus
-                                className={`text-[1.3rem] dark:text-slate-600 text-text transition-all duration-300 ${
-                                    isPlusAccording === index &&
-                                    "rotate-[45deg] !text-[#3B9DF8]"
-                                }`}
-                            />
-                        </p>
-                    </div>
-                    <div
-                        className={`grid transition-all duration-300 overflow-hidden ease-in-out ${
-                            isPlusAccording === index
-                                ? "grid-rows-[1fr] opacity-100 mt-4"
-                                : "grid-rows-[0fr] opacity-0"
-                        }`}
-                    >
-                        <p className="text-[#424242] dark:text-[#abc2d3] text-[0.9rem] overflow-hidden">
-                            {according.description}
-                        </p>
-                    </div>
-                </article>
-            ))}
+                  <rect
+                    y="7"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    className={`transition ${bgAccording === index && "rotate-180"}`}
+                  />
+                  <rect
+                    y="7"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    className={`rotate-90 transition ${bgAccording === index && "rotate-180"}`}
+                  />
+                </svg>
+              </div>
+
+              <div
+                className={`grid transition-all duration-300 overflow-hidden bg-gray-100 ${
+                  bgAccording === index ? "grid-rows-[1fr] p-3 opacity-100" : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <p className="text-[#424242] text-[0.9rem]">{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
 
+        {/* RIGHT ACCORDION */}
+        <div className="flex flex-col gap-3 w-full md:w-1/2">
+          {according2Data.map((item, index) => (
+            <article key={index} className="border border-gray-600 rounded p-3">
+              <div
+                className="flex cursor-pointer items-center justify-between"
+                onClick={() => handleBorderClick(index)}
+              >
+                <h2 className="text-[#3B9DF8] font-semibold text-[1.1rem] sm:text-[1.2rem]">
+                  {item.title}
+                </h2>
 
+                <FaPlus
+                  className={`text-[1.2rem] transition ${
+                    isPlusAccording === index && "rotate-[45deg] text-[#3B9DF8]"
+                  }`}
+                />
+              </div>
 
-     
+              <div
+                className={`grid transition-all duration-300 overflow-hidden ${
+                  isPlusAccording === index ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <p className="text-[#424242] text-[0.9rem]">{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
   );
 }
 
 export default Deshbord;
-
-
-
-
-
-
-// react icons
-
-
-
-   
-
-
-
-

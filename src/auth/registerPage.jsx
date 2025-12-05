@@ -2,10 +2,60 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { BASE_URL } from '@/basUrl/url';
+import axios from 'axios';
 
 function RegisterPage() {
+  const router = useRouter()
     const [showPassword,setShowPassword]=useState(true)
     const [showComfermPassword,setConfermPassword]=useState(true)
+    const [formData, setFormData] =useState({
+      name:'',
+      email:'',
+      password:'',
+      confirmPassword:''
+    })
+    const handleChange = (e)=>{
+      setFormData({
+        ...formData,
+        [e.target.id]:e.target.value,
+      })
+    }
+
+   const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Object destructure
+    const { name, email, password, confirmPassword } = formData;
+
+    // Check empty fields
+    if (!name || !email || !password || !confirmPassword) {
+      toast.error("All fields required");
+      return; // stop further execution
+    }
+
+    // Check password match
+    if (password !== confirmPassword) {
+      toast.error("Password not matched");
+      return; // stop further execution
+    }
+    
+    const respons =await axios.post(`${BASE_URL}/user/create`,formData)
+
+    // Everything is fine
+    console.log(respons);
+ 
+    toast.success("Form submitted successfully!");
+    router.push("/login")
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong");
+  }
+};
+
+    
 
     const handlePasswor = ()=>{
         setShowPassword(!showPassword)
@@ -66,7 +116,8 @@ function RegisterPage() {
           </button>
 
           {/* Divider */}
-          <div className="flex items-center justify-between mt-4">
+  <form action="" onSubmit={handleSubmit}>
+            <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
 
             <span className="text-xs text-center text-gray-500 uppercase dark:text-gray-400">
@@ -88,6 +139,8 @@ function RegisterPage() {
             <input
               id="name"
               type="text"
+              name='name'
+              onChange={handleChange}
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg 
               dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
               focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40
@@ -105,8 +158,10 @@ function RegisterPage() {
               Email Address
             </label>
             <input
-              id="LoggingEmailAddress"
+              id="email"
               type="email"
+              onChange={handleChange}
+              name='email'
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg 
               dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
               focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40
@@ -125,8 +180,10 @@ function RegisterPage() {
 
   <div className="relative">
     <input
-      id="confirmPassword"
+      id="password"
       type={`${showPassword ? "text":"password"}`}
+      name='password'
+      onChange={handleChange}
       className="block w-full px-4 py-2 pr-10 text-gray-700 bg-white border rounded-lg 
         dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
         focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40
@@ -157,6 +214,8 @@ function RegisterPage() {
   <div className="relative">
     <input
       id="confirmPassword"
+      name='confirmPassword'
+      onChange={handleChange}
       type={`${showComfermPassword ? "text":"password"}`}
       className="block w-full px-4 py-2 pr-10 text-gray-700 bg-white border rounded-lg 
         dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
@@ -180,12 +239,13 @@ function RegisterPage() {
 
           {/* Login Button */}
           <div className="mt-6">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize 
+            <button type='submit' className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize 
             transition-colors duration-300 transform bg-gray-800 rounded-lg 
             hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-50">
               Sign In
             </button>
           </div>
+  </form>
 
           {/* Signup Divider */}
           <div className="flex items-center justify-between mt-4">
