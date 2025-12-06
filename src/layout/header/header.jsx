@@ -53,10 +53,10 @@ function Header() {
         {/* --- Desktop Navigation (Hidden on Mobile) --- */}
         <ul className="hidden md:flex items-center gap-8 text-[16px] font-medium text-gray-700">
           <Link href="/">
-            <li className="hover:text-blue-600 transition-colors cursor-pointer">Dashboard</li>
+            <li className="hover:text-blue-600 transition-colors cursor-pointer">Home</li>
           </Link>
-          <Link href="/about">
-            <li className="hover:text-blue-600 transition-colors cursor-pointer">About</li>
+          <Link href="/dashboardUser">
+            <li className="hover:text-blue-600 transition-colors cursor-pointer">Dashboard</li>
           </Link>
           <Link href="/services">
             <li className="hover:text-blue-600 transition-colors cursor-pointer">Services</li>
@@ -100,12 +100,12 @@ function Header() {
                       Profile
                     </div>
                   </Link>
-                  <Link href="/settings">
+                  <Link href="/dashboardUser">
                     <div 
                         onClick={() => setIsProfileOpen(false)}
                         className="px-4 py-2 text-gray-700 hover:bg-gray-50 cursor-pointer"
                     >
-                      Settings
+                      Dashboard
                     </div>
                   </Link>
                   <div 

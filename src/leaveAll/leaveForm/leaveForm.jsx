@@ -1,6 +1,7 @@
 "use client";
 
 import { BASE_URL } from "@/basUrl/url";
+import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ import toast from "react-hot-toast";
 
 function LeaveForm() {
     const router = useRouter()
+    const email = useAuth()
   const [formData, setFormData] = useState({
     leaveType: "",
     startDate: "",
@@ -16,6 +18,7 @@ function LeaveForm() {
     resumptionDate: "",
     reliefOfficer: "",
     reasonForLeave: "",
+    userEmail:email || localStorage.getItem("email")
   });
 
   const handleChange = (e) => {
